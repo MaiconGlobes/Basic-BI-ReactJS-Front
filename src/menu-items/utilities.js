@@ -1,30 +1,35 @@
-// assets
 import {
   AppstoreAddOutlined,
   AntDesignOutlined,
   BarcodeOutlined,
   BgColorsOutlined,
   FontSizeOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  UnorderedListOutlined
 } from '@ant-design/icons';
 
-// icons
 const icons = {
   FontSizeOutlined,
   BgColorsOutlined,
   BarcodeOutlined,
   AntDesignOutlined,
   LoadingOutlined,
-  AppstoreAddOutlined
+  AppstoreAddOutlined,
+  UnorderedListOutlined
 };
-
-// ==============================|| MENU ITEMS - UTILITIES ||============================== //
 
 const utilities = {
   id: 'utilities',
   title: 'Utilities',
   type: 'group',
   children: [
+    {
+      id: 'list-tables',
+      title: 'List',
+      type: 'item',
+      url: '/list-tables',
+      icon: icons.UnorderedListOutlined
+    },
     {
       id: 'util-typography',
       title: 'Typography',

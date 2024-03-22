@@ -14,7 +14,7 @@ instanceAxios.interceptors.request.use(
   (config) => {
     const token = Cookies.get('_hasch_tk'); 
 
-      // console.log('passou aqui: ' + token);
+      //  console.log('passou aqui: ' + token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

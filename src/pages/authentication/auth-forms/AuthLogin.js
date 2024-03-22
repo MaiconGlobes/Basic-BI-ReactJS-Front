@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import {
   Button,
   Checkbox,
@@ -15,16 +14,25 @@ import {
   Stack,
   Typography
 } from '@mui/material';
+import Cookies from 'js-cookie';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import FirebaseSocial from './FirebaseSocial';
 import AnimateButton from 'components/@extended/AnimateButton';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import instanceAxios from 'axiosConfig';
 
 const AuthLogin = () => {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [formValues, setFormValues] = useState({
+   login: '',
+   email: '',
+   senha: '',
+});
 
-  const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -33,32 +41,92 @@ const AuthLogin = () => {
     event.preventDefault();
   };
 
+  const handleSubmit = async (values, {setErrors, setSubmitting }) => {
+   try {
+      const response = await instanceAxios.post('/authenticate/login', {
+         login: values.login,
+         email: values.email,
+         senha: values.senha,
+      });
+      
+      if (response?.data?.retorno?.codigo_status === 98)
+      {
+         setErrors({ submit: response?.data?.retorno?.mensagem?.descricao });
+         return;
+      }
+
+      const expires = new Date();
+      expires.setDate(expires.getDate() + 365);
+
+      Cookies.set('_hasch_tk', response?.data?.retorno.dados.token, { expires }); 
+      navigate('/');
+      
+   } catch (error) {
+      console.log(error);
+      setErrors({ submit: error?.response?.data?.retorno?.mensagem?.descricao });
+      Cookies.remove('_hasch_tk'); 
+
+   } finally {
+      setSubmitting(false);
+   }
+};
+
   return (
     <>
       <Formik
-        initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
-          submit: null
-        }}
+        initialValues={formValues}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          login: Yup.string().max(15).required('Login é obrigatório'),
+          email: Yup.string().email('Deve ser um e-mail válido').max(255).required('Email é obrigatório'),
+          senha: Yup.string().max(255).required('Senha é obrigatória')
         })}
-        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-          try {
-            setStatus({ success: false });
-            setSubmitting(false);
-          } catch (err) {
-            setStatus({ success: false });
-            setErrors({ submit: err.message });
-            setSubmitting(false);
-          }
-        }}
+        onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+         setFormValues(values);
+         handleSubmit(values, { setErrors, setStatus, setSubmitting });
+         }}
+         onInputChange={(e) => {
+            console.log(e);
+            const { name, value } = e.target;
+            setFormValues((prevValues) => ({
+               ...prevValues,
+               [name]: value,
+            }));
+         }}
+      //   onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+      //     try {
+      //       setStatus({ success: false });
+      //       setSubmitting(false);
+      //     } catch (err) {
+      //       setStatus({ success: false });
+      //       setErrors({ submit: err.message });
+      //       setSubmitting(false);
+      //     }
+      //   }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <Stack spacing={1}>
+                  <InputLabel htmlFor="login-login">Login</InputLabel>
+                  <OutlinedInput
+                    id="login-login"
+                    type="text"
+                    value={values.login}
+                    name="login"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    placeholder="Entre com seu login"
+                    fullWidth
+                    error={Boolean(touched.login && errors.login)}
+                  />
+                  {touched.login && errors.login && (
+                    <FormHelperText error id="standard-weight-helper-text-login-login">
+                      {errors.login}
+                    </FormHelperText>
+                  )}
+                </Stack>
+              </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="email-login">Endereço de email</InputLabel>
@@ -69,7 +137,7 @@ const AuthLogin = () => {
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder="Entre com seu email"
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
                   />
@@ -82,20 +150,20 @@ const AuthLogin = () => {
               </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Senha</InputLabel>
+                  <InputLabel htmlFor="senha-login">Senha</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.password && errors.password)}
-                    id="-password-login"
+                    id="-senha-login"
                     type={showPassword ? 'text' : 'password'}
-                    value={values.password}
-                    name="password"
+                    value={values.senha}
+                    name="senha"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
-                          aria-label="toggle password visibility"
+                          aria-label="toggle senha visibility"
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
@@ -105,11 +173,11 @@ const AuthLogin = () => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    placeholder="Enter password"
+                    placeholder="Entre com sua senha"
                   />
-                  {touched.password && errors.password && (
-                    <FormHelperText error id="standard-weight-helper-text-password-login">
-                      {errors.password}
+                  {touched.senha && errors.senha && (
+                    <FormHelperText error id="standard-weight-helper-text-senha-login">
+                      {errors.senha}
                     </FormHelperText>
                   )}
                 </Stack>
@@ -127,18 +195,23 @@ const AuthLogin = () => {
                         size="small"
                       />
                     }
-                    label={<Typography variant="h6">Keep me sign in</Typography>}
+                    label={<Typography variant="h6">Mantenha-me logado</Typography>}
                   />
                   <Link variant="h6" component={RouterLink} to="" color="text.primary">
-                    Forgot Password?
+                  	Esqueceu sua senha?
                   </Link>
                 </Stack>
               </Grid>
-              {errors.submit && (
+              {/* {errors.submit && (
                 <Grid item xs={12}>
                   <FormHelperText error>{errors.submit}</FormHelperText>
                 </Grid>
-              )}
+              )} */}
+              {errors.submit && (
+                  <Grid item xs={12}>
+                     <FormHelperText error>{errors.submit}</FormHelperText>
+                  </Grid>
+               )}
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
@@ -148,12 +221,12 @@ const AuthLogin = () => {
               </Grid>
               <Grid item xs={12}>
                 <Divider>
-                  <Typography variant="caption"> Login with</Typography>
+                  {/* <Typography variant="caption"> Faça login com</Typography> */}
                 </Divider>
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FirebaseSocial />
-              </Grid>
+              </Grid> */}
             </Grid>
           </form>
         )}

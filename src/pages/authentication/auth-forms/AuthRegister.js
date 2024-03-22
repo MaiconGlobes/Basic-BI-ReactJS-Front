@@ -43,8 +43,8 @@ const AuthRegister = () => {
 
 	const handleSubmit = async (values, {setErrors, setSubmitting }) => {
 		try {
-			const response = await instanceAxios.post('/user/register', {
-				apelido: values.surname,
+			const response = await instanceAxios.post('/authenticate/register', {
+				login: values.surname,
 				email: values.email,
 				senha: values.password,
 				pessoa: {
@@ -55,14 +55,10 @@ const AuthRegister = () => {
 			const expires = new Date();
 			expires.setDate(expires.getDate() + 365);
 
-			// Cookies.set('email', values.email, { expires }); 
-			// Cookies.set('senha', values.password, { expires }); 
 			Cookies.set('_hasch_tk', response?.data?.retorno.dados.token, { expires }); 
 			navigate('/');
 		} catch (error) {
 			setErrors({ submit: error?.response?.data?.retorno?.mensagem?.descricao });
-			// Cookies.remove('email');
-			// Cookies.remove('senha');
 			Cookies.remove('_hasch_tk'); 
 		} finally {
 			setSubmitting(false);
@@ -76,9 +72,9 @@ const AuthRegister = () => {
 				validationSchema={Yup.object().shape({
 					surname: Yup.string().max(255).required('Apelido é obrigatório'),
 					fullname: Yup.string().max(255).required('Nome é obrigatório'),
-					document: Yup.string().min(11).max(14).required('CPF/CNPJ é obrigatório'),
+					document: Yup.string().min(11, 'Deve conter no mínimo 11 caracteres').max(14, 'Deve conter no máximo 14 caracteres').required('CPF/CNPJ é obrigatório'),
 					email: Yup.string().email('Must be a valid email').max(255).required('Email é obrigatório'),
-					password: Yup.string().max(255).required('Senha é obrigatória')
+					password: Yup.string().min(6, 'Deve conter no mínimo 6 caracteres').max(8, 'Deve conter no máximo 8 caracteres').required('Senha é obrigatória')
 				})}
 				onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 					setFormValues(values);

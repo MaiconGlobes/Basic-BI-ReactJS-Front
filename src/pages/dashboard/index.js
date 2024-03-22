@@ -72,8 +72,8 @@ const DashboardDefault = () => {
 				const token = Cookies.get('_hasch_tk');
   
 				if (!token) {
-				navigate('/register'); // Redireciona para o registro se não houver token
-				return; // Sai da função se não houver token
+					navigate('/register'); 
+					return; 
 				}
   
 				await instanceAxios.get('/user/all');
