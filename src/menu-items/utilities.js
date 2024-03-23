@@ -20,19 +20,19 @@ const icons = {
 
 const utilities = {
   id: 'utilities',
-  title: 'Utilities',
+  title: 'Basico',
   type: 'group',
   children: [
     {
-      id: 'list-tables',
-      title: 'List',
+      id: 'list-clients',
+      title: 'Clientes',
       type: 'item',
-      url: '/list-tables',
+      url: '/list-clients',
       icon: icons.UnorderedListOutlined
     },
     {
-      id: 'ant-icons',
-      title: 'Ant Icons',
+      id: 'ant-design',
+      title: 'Ant Design',
       type: 'item',
       url: '/icons/ant',
       icon: icons.AntDesignOutlined,

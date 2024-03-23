@@ -163,7 +163,7 @@ const Profile = () => {
                                 textTransform: 'capitalize'
                               }}
                               icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                              label="Profile"
+                              label="Perfil"
                               {...a11yProps(0)}
                             />
                             <Tab
@@ -175,7 +175,7 @@ const Profile = () => {
                                 textTransform: 'capitalize'
                               }}
                               icon={<SettingOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                              label="Setting"
+                              label="Configurações"
                               {...a11yProps(1)}
                             />
                           </Tabs>
