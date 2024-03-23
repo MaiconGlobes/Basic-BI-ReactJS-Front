@@ -1,12 +1,10 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import AnimateButton from 'components/@extended/AnimateButton';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import {
-	Box,
+   Box,
 	Button,
 	FormControl,
 	FormHelperText,
@@ -19,14 +17,15 @@ import {
 	Stack,
 	Typography
 } from '@mui/material';
-import instanceAxios from 'axiosConfig';
+import AnimateButton from 'components/@extended/AnimateButton';
+import Cookies from 'js-cookie';
+import instanceAxios from 'axios-config';
 
 const AuthRegister = () => {
 	const navigate = useNavigate();
 	const [level] = useState();
 	const [showPassword, setShowPassword] = useState(false);
 	const [formValues, setFormValues] = useState({
-		surname: '',
 		fullname: '',
 		email: '',
 		document: '',
@@ -70,8 +69,7 @@ const AuthRegister = () => {
 			<Formik
 				initialValues={formValues}
 				validationSchema={Yup.object().shape({
-					surname: Yup.string().max(255).required('Apelido é obrigatório'),
-					fullname: Yup.string().max(255).required('Nome é obrigatório'),
+					fullname: Yup.string().max(50, 'Deve conter no máximo 50 caracteres').required('Nome é obrigatório'),
 					document: Yup.string().min(11, 'Deve conter no mínimo 11 caracteres').max(14, 'Deve conter no máximo 14 caracteres').required('CPF/CNPJ é obrigatório'),
 					email: Yup.string().email('Must be a valid email').max(255).required('Email é obrigatório'),
 					password: Yup.string().min(6, 'Deve conter no mínimo 6 caracteres').max(8, 'Deve conter no máximo 8 caracteres').required('Senha é obrigatória')
@@ -92,28 +90,7 @@ const AuthRegister = () => {
 				{({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
 					<form noValidate onSubmit={handleSubmit}>
 						<Grid container spacing={3}>
-							<Grid item xs={12} md={6}>
-								<Stack spacing={1}>
-									<InputLabel htmlFor="surname-signup">Apelido</InputLabel>
-									<OutlinedInput
-										id="surname-signup"
-										type="surname"
-										value={values.surname}
-										name="surname"
-										onBlur={handleBlur}
-										onChange={handleChange}
-										placeholder="Como será chamado"
-										fullWidth
-										error={Boolean(touched.surname && errors.surname)}
-									/>
-									{touched.surname && errors.surname && (
-										<FormHelperText error id="helper-text-surname-signup">
-											{errors.surname}
-										</FormHelperText>
-									)}
-								</Stack>
-							</Grid>
-							<Grid item xs={12} md={6}>
+							<Grid item xs={12}>
 								<Stack spacing={1}>
 									<InputLabel htmlFor="fullname-signup">Nome completo</InputLabel>
 									<OutlinedInput

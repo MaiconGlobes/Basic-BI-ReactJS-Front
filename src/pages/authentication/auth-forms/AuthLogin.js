@@ -21,7 +21,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import instanceAxios from 'axiosConfig';
+import instanceAxios from 'axios-config';
 
 const AuthLogin = () => {
   const [checked, setChecked] = useState(false);

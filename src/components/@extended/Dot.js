@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const Dot = ({ color, size }) => {
   const theme = useTheme();

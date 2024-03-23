@@ -1,7 +1,7 @@
 import Routes from 'routes';
 import ThemeCustomization from 'themes';
 import ScrollTop from 'components/ScrollTop';
-import { NavigationProvider } from './NavigationContext'; 
+import { NavigationProvider } from './navigation-context'; 
 
 const App = () => (
   <ThemeCustomization>

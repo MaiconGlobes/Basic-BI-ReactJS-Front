@@ -1,13 +1,12 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { handleNavigate } from './NavigationContext';
+import { handleNavigate } from './navigation-context';
 
 const instanceAxios = axios.create({
   baseURL: 'http://localhost:5005', 
   timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
-    //  'Authorization' : `Bearer `,
   },
 });
 
@@ -27,6 +26,7 @@ instanceAxios.interceptors.request.use(
 
 instanceAxios.interceptors.response.use(
   (response) => {
+
     if (!response.config.url.includes('/login')) {
       switch (response?.data?.retorno?.codigo_status) {
         case 98: {
@@ -41,6 +41,7 @@ instanceAxios.interceptors.response.use(
           break;
       }
     }
+    
     return response;
   },
   (error) => {
