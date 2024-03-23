@@ -20,14 +20,14 @@ const icons = {
 
 const utilities = {
   id: 'utilities',
-  title: 'Utilities',
+  title: 'Basico',
   type: 'group',
   children: [
     {
-      id: 'list-tables',
-      title: 'List',
+      id: 'list-clients',
+      title: 'Clientes',
       type: 'item',
-      url: '/list-tables',
+      url: '/list-clients',
       icon: icons.UnorderedListOutlined
     },
     {

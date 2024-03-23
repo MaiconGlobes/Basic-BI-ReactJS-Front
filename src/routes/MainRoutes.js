@@ -8,7 +8,7 @@
    const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
    const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
    const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
-   const ListTables = Loadable(lazy(() => import('pages/management/ListTable')));
+   const ClientList = Loadable(lazy(() => import('pages/management/ClientList')));
 
    const MainRoutes = {
    path: '/',
@@ -32,8 +32,8 @@
          ]
       },
       {
-         path: 'list-tables',
-         element: <ListTables />
+         path: 'list-clients',
+         element: <ClientList />
       },
       {
          path: 'sample-page',
