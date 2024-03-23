@@ -28,7 +28,7 @@ const AuthLogin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formValues, setFormValues] = useState({
-   login: '',
+  //  login: '',
    email: '',
    senha: '',
 });
@@ -44,7 +44,7 @@ const AuthLogin = () => {
   const handleSubmit = async (values, {setErrors, setSubmitting }) => {
    try {
       const response = await instanceAxios.post('/authenticate/login', {
-         login: values.login,
+        //  login: values.login,
          email: values.email,
          senha: values.senha,
       });
@@ -76,9 +76,8 @@ const AuthLogin = () => {
       <Formik
         initialValues={formValues}
         validationSchema={Yup.object().shape({
-          login: Yup.string().max(15).required('Login é obrigatório'),
           email: Yup.string().email('Deve ser um e-mail válido').max(255).required('Email é obrigatório'),
-          senha: Yup.string().max(255).required('Senha é obrigatória')
+          senha: Yup.string().min(6, 'Senha deve ter no mínimo 6 caracteres').max(8, 'Senha deve ter no máximo 8 caracteres').required('Senha é obrigatória')
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
          setFormValues(values);
@@ -92,41 +91,10 @@ const AuthLogin = () => {
                [name]: value,
             }));
          }}
-      //   onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-      //     try {
-      //       setStatus({ success: false });
-      //       setSubmitting(false);
-      //     } catch (err) {
-      //       setStatus({ success: false });
-      //       setErrors({ submit: err.message });
-      //       setSubmitting(false);
-      //     }
-      //   }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid container spacing={3}>
-            <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="login-login">Login</InputLabel>
-                  <OutlinedInput
-                    id="login-login"
-                    type="text"
-                    value={values.login}
-                    name="login"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    placeholder="Entre com seu login"
-                    fullWidth
-                    error={Boolean(touched.login && errors.login)}
-                  />
-                  {touched.login && errors.login && (
-                    <FormHelperText error id="standard-weight-helper-text-login-login">
-                      {errors.login}
-                    </FormHelperText>
-                  )}
-                </Stack>
-              </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="email-login">Endereço de email</InputLabel>
@@ -202,11 +170,6 @@ const AuthLogin = () => {
                   </Link>
                 </Stack>
               </Grid>
-              {/* {errors.submit && (
-                <Grid item xs={12}>
-                  <FormHelperText error>{errors.submit}</FormHelperText>
-                </Grid>
-              )} */}
               {errors.submit && (
                   <Grid item xs={12}>
                      <FormHelperText error>{errors.submit}</FormHelperText>

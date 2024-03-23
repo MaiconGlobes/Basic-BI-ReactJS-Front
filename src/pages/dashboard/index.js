@@ -72,7 +72,7 @@ const DashboardDefault = () => {
 				const token = Cookies.get('_hasch_tk');
   
 				if (!token) {
-					navigate('/register'); 
+					navigate('/login'); 
 					return; 
 				}
   

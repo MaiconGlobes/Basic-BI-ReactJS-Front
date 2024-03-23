@@ -36,32 +36,13 @@ const ListTables = () => {
     default: 'Undefined'
   };
 
-  const statusColor = {
-    0: 'orange',
-    1: 'blue',
-    2: '#52c41a',
-    3: 'red',
-    true: 'blue',
-    false: 'orange',
-    default: 'black'
-  };
-
   const columns_excel = [
-    {
-      title: 'Apelido',
-      dataIndex: 'apelido',
-      key: 'apelido',
-    },
     {
       title: 'Telefone',
       dataIndex: 'telefone',
       key: 'telefone',
     }
   ];
-
-  function getStatusColor(status) {
-    return statusColor[status] || statusColor.default;
-  }
 
   function getStatusText(text) {
     return statusText[text] || statusText.default;
@@ -189,8 +170,7 @@ const ListTables = () => {
         }}
       />
     ),
-    onFilter: (value, record) => console.log(record[dataIndex]),
-    //onFilter: (value, record) => record[dataIndex]?.toString()?.toLowerCase()?.includes(value?.toLowerCase()),
+    onFilter: (value, record) => record[dataIndex]?.toString()?.toLowerCase()?.includes(value?.toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -222,15 +202,6 @@ const ListTables = () => {
         sortDirections: ['descend', 'ascend']
     },
     {
-      title: 'Login',
-      dataIndex: 'login',
-      key: 'apelido',
-      width: '10%',
-      ...getColumnSearchProps('apelido'),
-      sorter: (a, b) => a.apelido.length,
-        sortDirections: ['descend', 'ascend']
-    },
-    {
       title: 'Nome Completo',
       dataIndex: ['person', 'nome'], // Define o dataIndex como um array para acessar a propriedade 'nome' de 'person'
       key: 'person.nome',
@@ -241,67 +212,54 @@ const ListTables = () => {
       sortDirections: ['descend', 'ascend']
     },
     {
+     title: 'CPF',
+     dataIndex: 'person',
+     key: 'person',
+     width: '15%',
+     render: (person) => person.cpf_cnpj,
+     sorter: (a, b) => a.person.cpf_cnpj.localeCompare(b.person.cpf_cnpj),
+     sortDirections: ['descend', 'ascend']
+    },
+    {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      width: '10%',
+      width: '40%',
       // ...getColumnSearchProps('email'),
       sorter: (a, b) => a.email.length,
         sortDirections: ['descend', 'ascend']
     },
-     {
-      title: 'CPF',
-      dataIndex: 'person',
-      key: 'person',
-      width: '40%',
-      render: (person) => person.cpf_cnpj,
-      sorter: (a, b) => a.person.cpf_cnpj.localeCompare(b.person.cpf_cnpj),
-      sortDirections: ['descend', 'ascend']
-     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'actions',
       width: '10%',
       render: (text, record) => (
-        record.status in [0, 1]
-          ? <Popconfirm
+         <Popconfirm
             placement="topRight"
             title="Confirmação!"
             description={`Deseja enviar convite para ${record.apelido}?`}
             okText="Sim"
             cancelText="Não"
-            // onConfirm={() => {
-            //   RequestAPI(record.id)
-            //     .then((status) => {
-            //       setConvitesStatus((prevStatus) => ({ ...prevStatus, [record.id]: status }));
-            //     });
-            // }}
+            onConfirm={() => {
+              // RequestAPI(record.id)
+              //   .then((status) => {
+              //     setConvitesStatus((prevStatus) => ({ ...prevStatus, [record.id]: status }));
+              //   });
+            }}
           >
             <Chip
-              label={getStatusText(convitesStatus[record.id] || record.status)}
+              label='sss'
               sx={{
-                borderColor: `${getStatusColor(convitesStatus[record.id] || record.status)}`,
-                color: getStatusColor(convitesStatus[record.id] || record.status),
+                borderColor: 'green',
+                color: 'green',
                 borderRadius: '50px',
                 fontSize: '0.785rem',
                 minWidth: '90px'
               }}
-              variant="outlined"
+              variant="outlined" //contained
             />
           </Popconfirm>
-          : <Chip
-            label={getStatusText(convitesStatus[record.id] || record.status)}
-            sx={{
-              borderColor: `${getStatusColor(convitesStatus[record.id] || record.status)}`,
-              color: getStatusColor(convitesStatus[record.id] || record.status),
-              borderRadius: '50px',
-              fontSize: '0.785rem',
-              minWidth: '90px'
-            }}
-            variant="outlined"
-          />
-
       )
     }
   ];
@@ -330,16 +288,15 @@ const ListTables = () => {
           justifyContent: 'flex-end',
           alignItems: 'center',
           marginTop: '-25px',
-          // py: -5,
         }}
       >
         <Button
-          //type="primary"
+          type="primary"
           shape="round"
           icon={<DownloadOutlined />}
           onClick={handleClick}
         >
-          Download Excel
+          Baixar planilha
         </Button>
       </Box>
 
