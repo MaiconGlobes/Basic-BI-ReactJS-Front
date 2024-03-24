@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { List, ListItemButton, ListItemIcon, ListItemText, Link } from '@mui/material';
 import { EditOutlined, LogoutOutlined, UserOutlined, WalletOutlined } from '@ant-design/icons';
 
 const ProfileTab = ({ handleLogout }) => {
@@ -24,7 +25,9 @@ const ProfileTab = ({ handleLogout }) => {
             <ListItemIcon>
                <EditOutlined />
             </ListItemIcon>
-            <ListItemText primary="Editar perfil" />
+            <Link variant="h6" component={RouterLink} to="/edit-profile-page" color="text.primary">
+               <ListItemText primary="Editar perfil" />
+            </Link>
          </ListItemButton>
 
          <ListItemButton selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>

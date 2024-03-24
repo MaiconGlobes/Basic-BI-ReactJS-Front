@@ -44,7 +44,6 @@ const AuthLogin = () => {
   const handleSubmit = async (values, {setErrors, setSubmitting }) => {
    try {
       const response = await instanceAxios.post('/authenticate/login', {
-        //  login: values.login,
          email: values.email,
          senha: values.senha,
       });

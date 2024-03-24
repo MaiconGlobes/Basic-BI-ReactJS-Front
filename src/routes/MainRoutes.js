@@ -4,6 +4,7 @@
 
    const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
    const SamplePage = Loadable(lazy(() => import('pages/extra-pages/SamplePage')));
+   const EditProfile = Loadable(lazy(() => import('pages/extra-pages/EditProfile')));
    const Typography = Loadable(lazy(() => import('pages/components-overview/Typography')));
    const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
    const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
@@ -38,6 +39,10 @@
       {
          path: 'sample-page',
          element: <SamplePage />
+      },
+      {
+         path: 'edit-profile-page',
+         element: <EditProfile />
       },
       {
          path: 'shadow',
