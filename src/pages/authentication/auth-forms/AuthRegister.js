@@ -70,7 +70,7 @@ const AuthRegister = () => {
 				initialValues={formValues}
 				validationSchema={Yup.object().shape({
 					fullname: Yup.string().max(50, 'Deve conter no máximo 50 caracteres').required('Nome é obrigatório'),
-					document: Yup.string().min(11, 'Deve conter no mínimo 11 caracteres').max(14, 'Deve conter no máximo 14 caracteres').required('CPF/CNPJ é obrigatório'),
+					document: Yup.string().matches(/^\d+$/, 'Apenas números são permitidos').min(11, 'Deve conter no mínimo 11 caracteres').max(14, 'Deve conter no máximo 14 caracteres').required('CPF/CNPJ é obrigatório'),
 					email: Yup.string().email('Must be a valid email').max(255).required('Email é obrigatório'),
 					password: Yup.string().min(6, 'Deve conter no mínimo 6 caracteres').max(8, 'Deve conter no máximo 8 caracteres').required('Senha é obrigatória')
 				})}
