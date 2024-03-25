@@ -7,7 +7,7 @@ import CircularProgressWithLabel from '../../components/@extended/CircularWithVa
 import { Typography, CardMedia } from '@mui/material';
 import MainCard from 'components/MainCard';
 import { MoreOutlined } from '@ant-design/icons';
-import avatar from 'assets/images/users/avatar-group.png';
+import avatar from 'assets/images/users/avatar-2.png';
 import { deepOrange } from '@mui/material/colors';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -78,15 +78,10 @@ const EditProfilePage = () => (
                      justifyContent: 'center',
                      gap: 2,
                      border: '1px solid rgb(230, 235, 241)',
-                     background: 'aqua'
+                     // background: 'aqua'
                   }}
                >
-                  <Box
-                     sx={{
-                        // justifyContent: 'center',
-                        gap: 2
-                     }}
-                  >
+                  <Box>
                      <Box
                         sx={{
                            maxWidth: { md: '100vh', xs: 400, lg: '100vh' },
@@ -98,8 +93,9 @@ const EditProfilePage = () => (
                         }}
                      >
                         <Box sx={{
-                           p: { xs: 2, sm: 3, md: 4, xl: 5 }, display: 'flex',
-                           justifyContent: 'flex-end',
+                           p: { xs: 2, sm: 3, md: 4, xl: 5 },
+                           display: 'flex',
+                           justifyContent: 'center',
                         }}>
                            <CardMedia component="img" image={avatar} sx={{ width: 120 }} />
                         </Box>
@@ -114,6 +110,16 @@ const EditProfilePage = () => (
                         >
                            Stebin Ben
                         </Typography>
+                        <Typography
+                           variant="body2"
+                           color="secondary"
+                           sx={{
+                              display: 'block',
+                              textAlign: 'center',
+                           }}
+                        >
+                           Full Stack Developer
+                        </Typography>
                      </Box>
                   </Box>
                </Box>
@@ -123,23 +129,18 @@ const EditProfilePage = () => (
                   sx={{
                      display: 'flex',
                      alignItems: 'center',
-                     gap: 2
-                     //  background: 'green'
+                     justifyContent: 'center',
+                     gap: 2,
+                     border: '1px solid rgb(230, 235, 241)',
+                     // background: 'aqua'
                   }}
                >
-                  <Box
-                     sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        // background: 'red',
-                        gap: 2
-                     }}
-                  >
+                  <Box>
                      <Box
                         sx={{
-                           border: '1px solid rgb(230, 235, 241)',
+                           // border: '1px solid rgb(230, 235, 241)',
                            maxWidth: { md: '100vh', xs: 400, lg: '100vh' },
-                           margin: { xs: 2.5, md: 3 },
+                           // margin: { xs: 2.5, md: 3 },
                            '& > *': {
                               flexGrow: 1,
                               flexBasis: '50%'
