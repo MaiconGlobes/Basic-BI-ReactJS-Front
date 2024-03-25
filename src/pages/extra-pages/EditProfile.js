@@ -128,61 +128,6 @@ const EditProfilePage = () => (
                         >
                            Full Stack Developer
                         </Typography>
-                        <Divider />
-                        <Grid container spacing={2} colums={3} alignItems="center" justifyContent="center">
-                           <Grid item xs={4} sm={4} md={4} lg={4} >
-                              <Typography
-                                 variant="h5"
-                                 sx={{
-                                    display: 'block',
-                                    textAlign: 'center',
-                                 }}
-                              >86</Typography>
-                              <Typography
-                                 variant="body2"
-                                 color="secondary"
-                                 sx={{
-                                    display: 'block',
-                                    textAlign: 'center',
-                                 }}
-                              >Posts</Typography>
-                           </Grid>
-                           <Grid item xs={4} sm={4} md={4} lg={4} >
-                              <Typography
-                                 variant="h5"
-                                 sx={{
-                                    display: 'block',
-                                    textAlign: 'center',
-                                 }}
-                              >2000</Typography>
-                              <Typography
-                                 variant="body2"
-                                 color="secondary"
-                                 sx={{
-                                    display: 'block',
-                                    textAlign: 'center',
-                                 }}
-                              >Likes</Typography>
-                           </Grid>
-                           <Grid item xs={4} sm={4} md={4} lg={4} >
-                              <Typography
-                                 variant="h5"
-                                 sx={{
-                                    display: 'block',
-                                    textAlign: 'center',
-                                 }}
-                              >102</Typography>
-                              <Typography
-                                 variant="body2"
-                                 color="secondary"
-                                 sx={{
-                                    display: 'block',
-                                    textAlign: 'center',
-                                 }}
-                              >Clients</Typography>
-                           </Grid>
-                        </Grid>
-
                      </Box>
                   </Box>
                </Box>
