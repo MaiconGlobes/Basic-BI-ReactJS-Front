@@ -128,6 +128,7 @@ const EditProfilePage = () => (
                         >
                            Full Stack Developer
                         </Typography>
+<<<<<<< HEAD
                         <Divider />
                         <Grid container spacing={2} colums={3} alignItems="center" justifyContent="center">
                            <Grid item xs={4} sm={4} md={4} lg={4} >
@@ -183,6 +184,8 @@ const EditProfilePage = () => (
                            </Grid>
                         </Grid>
 
+=======
+>>>>>>> ff186fcf2c2075810643ed2234e6bd89527a9971
                      </Box>
                   </Box>
                </Box>
