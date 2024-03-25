@@ -7,13 +7,14 @@ import CircularProgressWithLabel from '../../components/@extended/CircularWithVa
 import { Typography, CardMedia } from '@mui/material';
 import MainCard from 'components/MainCard';
 import { MoreOutlined } from '@ant-design/icons';
-import avatar from 'assets/images/users/avatar-group.png';
+import avatar from 'assets/images/users/avatar-2.png';
 import { deepOrange } from '@mui/material/colors';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import EditProfileForm from '../authentication/auth-forms/EditProfile';
+import { Divider } from '../../../node_modules/antd/es/index';
 
 const EditProfilePage = () => (
    <>
@@ -78,15 +79,10 @@ const EditProfilePage = () => (
                      justifyContent: 'center',
                      gap: 2,
                      border: '1px solid rgb(230, 235, 241)',
-                     background: 'aqua'
+                     // background: 'aqua'
                   }}
                >
-                  <Box
-                     sx={{
-                        // justifyContent: 'center',
-                        gap: 2
-                     }}
-                  >
+                  <Box>
                      <Box
                         sx={{
                            maxWidth: { md: '100vh', xs: 400, lg: '100vh' },
@@ -98,12 +94,20 @@ const EditProfilePage = () => (
                         }}
                      >
                         <Box sx={{
-                           p: { xs: 2, sm: 3, md: 4, xl: 5 }, display: 'flex',
-                           justifyContent: 'flex-end',
+                           p: { xs: 2, sm: 3, md: 4, xl: 5 },
+                           display: 'flex',
+                           justifyContent: 'center',
                         }}>
-                           <CardMedia component="img" image={avatar} sx={{ width: 120 }} />
+                           <CardMedia
+                              component="img"
+                              image={avatar}
+                              sx={{
+                                 width: 120,
+                                 height: 120, // Certifique-se de que a altura e a largura sejam iguais
+                                 borderRadius: '50%' // Torna a imagem redonda
+                              }}
+                           />
                         </Box>
-
                         <Typography
                            variant="h5"
                            sx={{
@@ -114,6 +118,71 @@ const EditProfilePage = () => (
                         >
                            Stebin Ben
                         </Typography>
+                        <Typography
+                           variant="body2"
+                           color="secondary"
+                           sx={{
+                              display: 'block',
+                              textAlign: 'center',
+                           }}
+                        >
+                           Full Stack Developer
+                        </Typography>
+                        <Divider />
+                        <Grid container spacing={2} colums={3} alignItems="center" justifyContent="center">
+                           <Grid item xs={4} sm={4} md={4} lg={4} >
+                              <Typography
+                                 variant="h5"
+                                 sx={{
+                                    display: 'block',
+                                    textAlign: 'center',
+                                 }}
+                              >86</Typography>
+                              <Typography
+                                 variant="body2"
+                                 color="secondary"
+                                 sx={{
+                                    display: 'block',
+                                    textAlign: 'center',
+                                 }}
+                              >Posts</Typography>
+                           </Grid>
+                           <Grid item xs={4} sm={4} md={4} lg={4} >
+                              <Typography
+                                 variant="h5"
+                                 sx={{
+                                    display: 'block',
+                                    textAlign: 'center',
+                                 }}
+                              >2000</Typography>
+                              <Typography
+                                 variant="body2"
+                                 color="secondary"
+                                 sx={{
+                                    display: 'block',
+                                    textAlign: 'center',
+                                 }}
+                              >Likes</Typography>
+                           </Grid>
+                           <Grid item xs={4} sm={4} md={4} lg={4} >
+                              <Typography
+                                 variant="h5"
+                                 sx={{
+                                    display: 'block',
+                                    textAlign: 'center',
+                                 }}
+                              >102</Typography>
+                              <Typography
+                                 variant="body2"
+                                 color="secondary"
+                                 sx={{
+                                    display: 'block',
+                                    textAlign: 'center',
+                                 }}
+                              >Clients</Typography>
+                           </Grid>
+                        </Grid>
+
                      </Box>
                   </Box>
                </Box>
@@ -123,23 +192,18 @@ const EditProfilePage = () => (
                   sx={{
                      display: 'flex',
                      alignItems: 'center',
-                     gap: 2
-                     //  background: 'green'
+                     justifyContent: 'center',
+                     gap: 2,
+                     border: '1px solid rgb(230, 235, 241)',
+                     // background: 'aqua'
                   }}
                >
-                  <Box
-                     sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        // background: 'red',
-                        gap: 2
-                     }}
-                  >
+                  <Box>
                      <Box
                         sx={{
-                           border: '1px solid rgb(230, 235, 241)',
+                           // border: '1px solid rgb(230, 235, 241)',
                            maxWidth: { md: '100vh', xs: 400, lg: '100vh' },
-                           margin: { xs: 2.5, md: 3 },
+                           // margin: { xs: 2.5, md: 3 },
                            '& > *': {
                               flexGrow: 1,
                               flexBasis: '50%'
