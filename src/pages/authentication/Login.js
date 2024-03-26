@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Grid, Stack, Typography } from '@mui/material';
-import AuthLogin from './auth-forms/AuthLogin';
-import AuthWrapper from './AuthWrapper';
+import AuthLogin from './auth-forms/auth-login';
+import AuthWrapper from './auth-wrapper';
 
 const Login = () => (
   <AuthWrapper>

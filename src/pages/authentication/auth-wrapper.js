@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Box, Grid } from '@mui/material';
-import AuthCard from './AuthCard';
+import AuthCard from './auth-card';
 import Logo from 'components/Logo';
 import AuthFooter from 'components/cards/AuthFooter';
 import AuthBackground from 'assets/images/auth/AuthBackground';

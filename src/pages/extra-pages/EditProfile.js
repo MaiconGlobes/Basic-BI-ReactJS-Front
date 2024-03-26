@@ -13,7 +13,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
-import EditProfileForm from '../authentication/auth-forms/EditProfile';
+import EditProfileForm from '../authentication/auth-forms/edit-profile';
 import { Divider } from '../../../node_modules/antd/es/index';
 
 const EditProfilePage = () => (
