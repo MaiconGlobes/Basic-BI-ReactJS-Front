@@ -5,14 +5,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import CircularProgressWithLabel from '../../components/@extended/CircularWithValueLabel';
 import { Typography, CardMedia } from '@mui/material';
-import MainCard from 'components/MainCard';
-import { MoreOutlined } from '@ant-design/icons';
 import avatar from 'assets/images/users/avatar-2.png';
-import { deepOrange } from '@mui/material/colors';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
 import EditProfileForm from '../authentication/auth-forms/edit-profile';
 import { Divider } from '../../../node_modules/antd/es/index';
 
