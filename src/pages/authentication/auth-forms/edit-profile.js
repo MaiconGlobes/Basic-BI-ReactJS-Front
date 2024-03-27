@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
    Box,
@@ -20,10 +20,11 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import Cookies from 'js-cookie';
 import instanceAxios from 'axios-config';
 
-const EditProfileForm = () => {
+const EditProfileForm = ({ disabledForms }) => {
    const navigate = useNavigate();
    const [level] = useState();
    const [showPassword, setShowPassword] = useState(false);
+   const fullnameInputRef = useRef(null);
    const [formValues, setFormValues] = useState({
       fullname: '',
       email: '',
@@ -34,9 +35,15 @@ const EditProfileForm = () => {
       number: '',
       neighborhood: '',
       county: '',
-      uf : '',
+      uf: '',
       cep: '',
    });
+
+   const focusFullnameInput = () => {
+      if (fullnameInputRef.current) {
+         fullnameInputRef.current.focus();
+      }
+   };
 
    const handleClickShowPassword = () => {
       setShowPassword(!showPassword);
@@ -84,7 +91,7 @@ const EditProfileForm = () => {
                number: Yup.string().max(10, 'Deve conter no máximo 10 caracteres'),
                neighborhood: Yup.string().max(35, 'Deve conter no máximo 35 caracteres'),
                county: Yup.string().max(100, 'Deve conter no máximo 100 caracteres'),
-               uf : Yup.string().max(2, 'Deve conter no máximo 2 caracteres'),
+               uf: Yup.string().max(2, 'Deve conter no máximo 2 caracteres'),
                cep: Yup.string().matches(/^\d+$/, 'Apenas números são permitidos').max(8, 'Deve conter no máximo 8 caracteres'),
             })}
             onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
@@ -111,16 +118,18 @@ const EditProfileForm = () => {
                   >
                      Basico
                   </Typography>
-                  <Grid container spacing={2}>
-
+                  <Grid
+                     container
+                     spacing={2}>
                      <Grid item xs={12} sm={6}>
                         <Stack spacing={1}>
                            <InputLabel htmlFor="fullname-signup">Nome completo</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.fullname && errors.fullname)}
                               id="fullname-signup"
-                              type="fullname"
+                              type="text"
                               value={values.fullname}
                               name="fullname"
                               onBlur={handleBlur}
@@ -140,8 +149,10 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="document-signup">CPF/CNPJ</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.document && errors.document)}
                               id="document-signup"
+                              type="text"
                               value={values.document}
                               name="document"
                               onBlur={handleBlur}
@@ -161,6 +172,7 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="email-signup">Endereço de email</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.email && errors.email)}
                               id="email-login"
                               type="email"
@@ -183,6 +195,7 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="fullname-signup">Telefone</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.phone && errors.phone)}
                               id="phone-signup"
                               type="tel"
@@ -206,6 +219,7 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="password-signup">Senha</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.password && errors.password)}
                               id="password-signup"
                               type={showPassword ? 'text' : 'password'}
@@ -258,6 +272,7 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="addrees-signup">Endereço</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.fullname && errors.addrees)}
                               id="addrees-signup"
                               type="text"
@@ -280,6 +295,7 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="number-signup">Numero</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.number && errors.number)}
                               id="number-signup"
                               type="text"
@@ -302,9 +318,10 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="neighborhood-signup">Bairro</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.neighborhood && errors.neighborhood)}
                               id="neighborhood-signup"
-                              type="neighborhood"
+                              type="text"
                               value={values.neighborhood}
                               name="neighborhood"
                               onBlur={handleBlur}
@@ -324,9 +341,10 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="county-signup">Município</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.county && errors.county)}
                               id="county-signup"
-                              type="county"
+                              type="text"
                               value={values.county}
                               name="county"
                               onBlur={handleBlur}
@@ -347,6 +365,7 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="uf-signup">UF</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.uf && errors.uf)}
                               id="uf-signup"
                               type="text"
@@ -369,6 +388,7 @@ const EditProfileForm = () => {
                            <InputLabel htmlFor="cep-signup">CEP</InputLabel>
                            <OutlinedInput
                               fullWidth
+                              disabled={disabledForms}
                               error={Boolean(touched.cep && errors.cep)}
                               id="cep-signup"
                               type="tel"
@@ -405,18 +425,31 @@ const EditProfileForm = () => {
                         </Grid>
                      )}
                      <Grid item xs={12} sm={12}>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-end' }}>
+                        <Box
+                           sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end'
+                           }}>
                            <AnimateButton>
-                              <Button disableElevation disabled={isSubmitting} size="medium" type="submit" variant="contained" color="primary">
+                              <Button
+                                 disableElevation
+                                 disabled={disabledForms || isSubmitting}
+                                 size="medium"
+                                 type="submit"
+                                 variant="contained"
+                                 color="primary"
+                                 cursor='hand'
+                              >
                                  Atualizar
                               </Button>
                            </AnimateButton>
+                           <button onClick={focusFullnameInput}>Focar no Nome Completo</button>
                         </Box>
                      </Grid>
                   </Grid>
                </form>
             )}
-         </Formik>
+         </Formik >
       </>
    );
 };
