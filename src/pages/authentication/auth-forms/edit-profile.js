@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
    Box,
@@ -44,6 +44,10 @@ const EditProfileForm = ({ disabledForms }) => {
          fullnameInputRef.current.focus();
       }
    };
+
+   useEffect(()=>{
+      focusFullnameInput();
+   },[disabledForms]);
 
    const handleClickShowPassword = () => {
       setShowPassword(!showPassword);
@@ -135,6 +139,7 @@ const EditProfileForm = ({ disabledForms }) => {
                               onBlur={handleBlur}
                               onChange={handleChange}
                               placeholder="Seu nome legítimo"
+                              inputRef={fullnameInputRef}
                               inputProps={{}}
                            />
                            {touched.fullname && errors.fullname && (
@@ -443,7 +448,6 @@ const EditProfileForm = ({ disabledForms }) => {
                                  Atualizar
                               </Button>
                            </AnimateButton>
-                           <button onClick={focusFullnameInput}>Focar no Nome Completo</button>
                         </Box>
                      </Grid>
                   </Grid>
